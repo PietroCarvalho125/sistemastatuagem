@@ -1,0 +1,152 @@
+# ============================================================
+# rotas/tatuadores.py — CRUD de Tatuadores
+# Descrição: Endpoints para gerenciar os tatuadores do estúdio.
+#            Cada tatuador pertence a uma senioridade (FK).
+# ============================================================
+
+from typing import List, Optional
+
+from fastapi import APIRouter
+from pydantic import BaseModel
+
+from database import conectar
+
+router = APIRouter()
+
+
+class Tatuador(BaseModel):
+    nometatuador: str
+    cpf: str
+    email: Optional[str] = None
+    telefone: Optional[str] = None
+    datacontratacao: Optional[str] = None
+    idsenioridade: int
+
+
+class EstilosDoTatuador(BaseModel):
+    idestilos: List[int]
+
+
+@router.get("")
+def listar_tatuadores():
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute(
+        """
+        SELECT tatuador.*, senioridade.nome AS senioridade
+        FROM tatuador
+        JOIN senioridade ON tatuador.idsenioridade = senioridade.idsenioridade
+        ORDER BY tatuador.nometatuador
+        """
+    )
+    tatuadores = cursor.fetchall()
+    conn.close()
+    return tatuadores
+
+
+@router.get("/{id}")
+def buscar_tatuador(id: int):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM tatuador WHERE idtatuador = %s", (id,))
+    tatuador = cursor.fetchone()
+    conn.close()
+    if not tatuador:
+        return {"erro": "Tatuador não encontrado"}
+    return tatuador
+
+
+@router.post("")
+def criar_tatuador(tatuador: Tatuador):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute(
+        """INSERT INTO tatuador (nometatuador, cpf, email, telefone, datacontratacao, idsenioridade)
+           VALUES (%s, %s, %s, %s, %s, %s)""",
+        (
+            tatuador.nometatuador,
+            tatuador.cpf,
+            tatuador.email,
+            tatuador.telefone,
+            tatuador.datacontratacao,
+            tatuador.idsenioridade,
+        ),
+    )
+    novo_id = cursor.lastrowid
+    conn.commit()
+    conn.close()
+    return {"mensagem": "Tatuador cadastrado com sucesso", "idtatuador": novo_id}
+
+
+@router.put("/{id}")
+def atualizar_tatuador(id: int, tatuador: Tatuador):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute(
+        """UPDATE tatuador
+           SET nometatuador=%s, cpf=%s, email=%s, telefone=%s, datacontratacao=%s, idsenioridade=%s
+           WHERE idtatuador=%s""",
+        (
+            tatuador.nometatuador,
+            tatuador.cpf,
+            tatuador.email,
+            tatuador.telefone,
+            tatuador.datacontratacao,
+            tatuador.idsenioridade,
+            id,
+        ),
+    )
+    conn.commit()
+    conn.close()
+    return {"mensagem": "Tatuador atualizado com sucesso"}
+
+
+@router.delete("/{id}")
+def deletar_tatuador(id: int):
+    conn = conectar()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("DELETE FROM tatuador WHERE idtatuador = %s", (id,))
+        conn.commit()
+        conn.close()
+        return {"mensagem": "Tatuador deletado com sucesso"}
+    except Exception:
+        conn.rollback()
+        conn.close()
+        return {"erro": "Não foi possível excluir este tatuador. Verifique se ele possui agendamentos ou estilos cadastrados."}
+
+
+@router.get("/{id}/estilos")
+def listar_estilos_do_tatuador(id: int):
+    conn = conectar()
+    cursor = conn.cursor()
+    cursor.execute(
+        """
+        SELECT estilo.idestilo, estilo.descricao
+        FROM tatuador_estilo
+        JOIN estilo ON tatuador_estilo.idestilo = estilo.idestilo
+        WHERE tatuador_estilo.idtatuador = %s
+        """,
+        (id,),
+    )
+    estilos = cursor.fetchall()
+    conn.close()
+    return estilos
+
+
+@router.put("/{id}/estilos")
+def atualizar_estilos_do_tatuador(id: int, dados: EstilosDoTatuador):
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM tatuador_estilo WHERE idtatuador = %s", (id,))
+
+    for idestilo in dados.idestilos:
+        cursor.execute(
+            "INSERT INTO tatuador_estilo (idtatuador, idestilo, dataestilo) VALUES (%s, %s, CURDATE())",
+            (id, idestilo),
+        )
+
+    conn.commit()
+    conn.close()
+    return {"mensagem": "Estilos atualizados com sucesso"}

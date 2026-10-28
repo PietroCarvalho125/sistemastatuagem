@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Estúdio de Tatuagem</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="app-body">
+
+  <nav class="topbar">
+    <div class="container">
+      <div class="brand-pill">
+        <span class="mini-mark">I</span>
+        <span>Ink Studio</span>
+      </div>
+      <button onclick="sair()" class="nav-logout">Sair</button>
+    </div>
+  </nav>
+
+  <div class="container dashboard-wrap">
+    <section class="hero-card">
+      <div class="hero-kicker">Painel administrativo</div>
+      <h1 class="hero-title">Bem-vindo ao estúdio</h1>
+      <p class="hero-sub">Gerencie clientes, tatuadores, agendamentos e estilos com uma experiência visual premium.</p>
+    </section>
+
+    <div class="dashboard-grid">
+      <a href="clientes.html" class="menu-card">
+        <h3>Clientes</h3>
+        <p>Controle de cadastro e histórico.</p>
+      </a>
+
+      <a href="tatuadores.html" class="menu-card">
+        <h3>Tatuadores</h3>
+        <p>Perfis, senioridade e especialidades.</p>
+      </a>
+
+      <a href="agendamentos.html" class="menu-card">
+        <h3>Agendamentos</h3>
+        <p>Agenda e aprovação de desenhos.</p>
+      </a>
+
+      <a href="senioridade.html" class="menu-card">
+        <h3>Senioridade</h3>
+        <p>Organização dos níveis do time.</p>
+      </a>
+
+      <a href="estilos.html" class="menu-card">
+        <h3>Estilos</h3>
+        <p>Catálogo de estilos de tatuagem.</p>
+      </a>
+
+      <a href="cadastro.html" class="menu-card">
+        <h3>Novo Funcionário</h3>
+        <p>Cadastro de novos usuários.</p>
+      </a>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+  <script>
+    protegerPagina()
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,272 @@
+:root {
+  --bg-1: #0b0b0d;
+  --bg-2: #17171b;
+  --panel: rgba(24, 24, 28, 0.9);
+  --panel-soft: rgba(17, 17, 20, 0.72);
+  --line: rgba(255, 255, 255, 0.08);
+  --text: #f5f1eb;
+  --muted: #b9b0a6;
+  --gold: #d9b36c;
+  --gold-soft: #f2d599;
+  --red: #c12f2f;
+  --red-soft: #f05454;
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: Inter, "Segoe UI", sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(201, 53, 53, 0.22), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(217, 179, 108, 0.16), transparent 35%),
+    linear-gradient(135deg, var(--bg-1), var(--bg-2));
+  color: var(--text);
+}
+
+body {
+  min-height: 100vh;
+}
+
+.auth-page {
+  display: grid;
+  place-items: center;
+  padding: 40px 16px;
+}
+
+.auth-card {
+  width: min(100%, 440px);
+  background: rgba(15, 15, 18, 0.82);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: 0 30px 80px var(--shadow);
+  padding: 32px 28px 26px;
+  backdrop-filter: blur(10px);
+}
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--gold), var(--red));
+  color: #140d0d;
+  font-size: 2rem;
+  font-weight: 800;
+  box-shadow: 0 12px 28px rgba(201, 53, 53, 0.45);
+}
+
+.brand-name {
+  display: block;
+  margin-top: 18px;
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text);
+}
+
+.auth-subtitle {
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 28px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.form-control {
+  height: 52px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.form-control:focus {
+  border-color: rgba(217, 179, 108, 0.8);
+  box-shadow: 0 0 0 0.25rem rgba(217, 179, 108, 0.18);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), #c58a31);
+  border: none;
+  border-radius: 14px;
+  color: #140d0d;
+  font-weight: 700;
+  height: 52px;
+  box-shadow: 0 16px 27px rgba(197, 138, 49, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 32px rgba(197, 138, 49, 0.45);
+  background: linear-gradient(135deg, var(--gold-soft), #dca74a);
+}
+
+.auth-link {
+  color: var(--gold-soft);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.auth-link:hover {
+  color: #fff;
+}
+
+.app-body {
+  background: linear-gradient(180deg, #0d0d0f 0%, #131316 100%);
+}
+
+.topbar {
+  background: rgba(18, 18, 22, 0.85);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
+}
+
+.topbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 72px;
+}
+
+.brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.brand-pill .mini-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--gold), var(--red));
+  color: #120e0e;
+  font-weight: 900;
+}
+
+.nav-logout {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text);
+  border-radius: 12px;
+  padding: 10px 18px;
+  transition: 0.2s ease;
+}
+
+.nav-logout:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.dashboard-wrap {
+  padding: 36px 0 60px;
+}
+
+.hero-card {
+  background: linear-gradient(135deg, rgba(29, 29, 33, 0.96), rgba(15, 15, 18, 0.92));
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  padding: 32px;
+  margin-bottom: 28px;
+}
+
+.hero-kicker {
+  color: var(--gold-soft);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  margin-bottom: 14px;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 3vw, 3rem);
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.04em;
+}
+
+.hero-sub {
+  color: var(--muted);
+  margin-top: 12px;
+  max-width: 760px;
+  font-size: 1.04rem;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+}
+
+.menu-card {
+  display: block;
+  padding: 22px 18px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  color: var(--text);
+  text-decoration: none;
+  min-height: 150px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(217, 179, 108, 0.5);
+  box-shadow: 0 18px 40px rgba(201, 53, 53, 0.18);
+  text-decoration: none;
+  color: var(--text);
+}
+
+.menu-card h3 {
+  font-size: 1.1rem;
+  margin: 0 0 8px;
+  font-weight: 700;
+}
+
+.menu-card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 576px) {
+  .auth-card {
+    padding: 26px 20px 22px;
+  }
+
+  .brand-name {
+    font-size: 1.8rem;
+  }
+
+  .hero-card {
+    padding: 22px 18px;
+  }
+}
